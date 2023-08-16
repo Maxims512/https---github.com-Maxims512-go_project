@@ -1,0 +1,11 @@
+y := string(i)
+		_, err := strconv.Atoi(y)
+		if err == nil {
+			schet++
+			fmt.Println(y)
+			if schet == 5 {
+				//arr[perem] = otvet
+				//perem++
+				fmt.Println(y)
+			}
+		}
