@@ -39,7 +39,11 @@ func give_vopr(text string) (array[100]string){
 		if schet<8 {
 			vopr += string(i)
 		} else{
-			array[perem]=vopr
+			if perem==0{
+				array[perem]=vopr
+			} else {
+				array[perem]=vopr[4:]
+			}
 			vopr=""
 			perem++
 			schet=-4
@@ -52,13 +56,38 @@ func give_vopr(text string) (array[100]string){
 }
 
 
+
+
 func main() {
 	data := openFile()
-	//vopr_otvet := give_vopr_otv(data)
-	//for i := 0; i < 100; i++{
-       // fmt.Println(i+1, string(vopr_otvet[i]))
-    //}
 	vopr := give_vopr(data)
-	fmt.Println(vopr[1])
-	fmt.Print(rand.Intn(100))
+	otveti := give_vopr_otv(data)
+	perem := ""
+	fmt.Println("Вы открыли тест по безопасному владению оружием")
+	fmt.Println("Вы можете сделать одну ошибку чтобы удачно сдать тест")
+	fmt.Println("Для ответа на вопрос нажмите цифру правильного ответа на клавиатуре")
+	fmt.Println("Нажмите Enter чтобы начать тест")
+	fmt.Fscan(os.Stdin, perem) 
+	fmt.Printf("\x1bc")
+	polz_otvet := ""
+	for {
+		oshibk := 0
+		for i := 0; i < 10; i++{
+			random := rand.Intn(92)
+			fmt.Println(vopr[random])
+			otv := string(otveti[random])
+			fmt.Fscan(os.Stdin, &perem) 
+			if polz_otvet != otv{
+				oshibk++
+			}
+			fmt.Printf("\x1bc")
+		}
+		if oshibk>1{
+			fmt.Println("Вы не сдали тест")
+		} else {
+			fmt.Println("Вы сдали тест")
+		}
+		break
+	}
+	fmt.Fscan(os.Stdin, perem) 
 }
